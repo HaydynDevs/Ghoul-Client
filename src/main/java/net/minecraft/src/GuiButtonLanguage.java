@@ -9,7 +9,7 @@ public class GuiButtonLanguage extends GuiButton {
 		super(par1, par2, par3, 20, 20, "");
 	}
 	
-	private static final TextureLocation tex_gui = new TextureLocation("/gui/gui.png");
+	private static final TextureLocation tex_gui = new TextureLocation("/gui/GhoulClient/mainGui.png");
 
 	/**
 	 * Draws this button to the screen.

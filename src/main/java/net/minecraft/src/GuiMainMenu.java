@@ -16,6 +16,7 @@ import net.lax1dude.eaglercraft.LocalStorageManager;
 import net.lax1dude.eaglercraft.TextureLocation;
 import net.lax1dude.eaglercraft.adapter.Tessellator;
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.GuiMainButton;
 
 public class GuiMainMenu extends GuiScreen {
 
@@ -24,7 +25,7 @@ public class GuiMainMenu extends GuiScreen {
 
 	/** The splash message. */
 	public String splashText = null;
-	private GuiButton buttonResetDemo;
+	private GuiMainButton buttonResetDemo;
 	
 	private static boolean showingEndian = true;
 	private static final int showRandomItem;
@@ -144,32 +145,26 @@ public class GuiMainMenu extends GuiScreen {
 		var1.setTime(new Date());
 
 		int buttonY = this.height / 4 + 48; // same as startY for first button
-
 		StringTranslate var2 = StringTranslate.getInstance();
-
-		int startY = this.height / 4 + 48;
 		int var4 = this.height / 4 + 48;
-		int spacing = 24;
-		int xPos = this.width / 2 - 50;
-		int y = startY;
 
 		if (EaglerAdapter.isIntegratedServerAvailable()) {
-			this.buttonList.add(new GuiButton(1, xPos, y, 100, 20, var2.translateKey("menu.singleplayer")));
-			y += spacing;
+			this.buttonList.add(new GuiMainButton(1, this.width / 2 - 100, var4, var2.translateKey("menu.singleplayer")));
 		}
 
-		// Multiplayer button
-		this.buttonList.add(new GuiButton(2, xPos, y, 100, 20, var2.translateKey("menu.multiplayer")));
-		y += spacing;
+		this.buttonList.add(new GuiMainButton(2,this.width / 2 - 100, var4 + 24 * 1, var2.translateKey("menu.multiplayer")));
+		this.buttonList.add(new GuiMainButton(3, this.width / 2 - 100, var4 + 48 * 1, var2.translateKey("menu.options")));
+		this.buttonList.add(new GuiMainButton(4, this.width / 2 - 100, var4 + 72 * 1, var2.translateKey("menu.editprofile")));
+		//this.buttonList.add(new GuiButton(6, xPos, y, 100, 20, var2.translateKey("Discord")));
 
-		// Options button
-		this.buttonList.add(new GuiButton(0, xPos, y, 100, 20, var2.translateKey("menu.options")));
-		y += spacing;
+		int margin = 5; 
+		int buttonWidth = 24; 
+		int buttonHeight = 20;
+		int xPos = this.width - buttonWidth - margin;
+		int yPos = margin;
 
-		// Edit Profile button
-		this.buttonList.add(new GuiButton(4, xPos, y, 100, 20, var2.translateKey("menu.editprofile")));
+		this.buttonList.add(new GuiButtonLanguage(5, xPos, yPos));
 
-		this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, var4 + 72 + 12));
 		Object var5 = this.field_104025_t;
 
 		synchronized (this.field_104025_t) {
@@ -281,43 +276,46 @@ public class GuiMainMenu extends GuiScreen {
 	 * Fired when a control is clicked. This is the equivalent of
 	 * ActionListener.actionPerformed(ActionEvent e).
 	 */
+	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
-		if (par1GuiButton.id == 0) {
+		// cast to GuiMainButton if needed (optional)
+		GuiMainButton button = (par1GuiButton instanceof GuiMainButton) ? (GuiMainButton) par1GuiButton : null;
+
+		int id = par1GuiButton.id; // use id from the parameter
+
+		if (id == 0) {
 			showingEndian = false;
 			this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
-		}
-		
-		if (par1GuiButton.id == 1) {
-			if(EaglerAdapter.isIntegratedServerAvailable()) {
-				if(!IntegratedServer.isAlive()) {
+		} else if (id == 1) {
+			if (EaglerAdapter.isIntegratedServerAvailable()) {
+				if (!IntegratedServer.isAlive()) {
 					IntegratedServer.begin();
-					this.mc.displayGuiScreen(new GuiScreenSingleplayerLoading(new GuiSelectWorld(this), "starting up integrated server", () -> IntegratedServer.isReady()));
-				}else {
+					this.mc.displayGuiScreen(new GuiScreenSingleplayerLoading(
+							new GuiSelectWorld(this),
+							"starting up integrated server",
+							() -> IntegratedServer.isReady()
+					));
+				} else {
 					this.mc.displayGuiScreen(new GuiSelectWorld(this));
 				}
 			}
-		}
-
-		if (par1GuiButton.id == 5) {
+		} else if (id == 6) {
+			EaglerAdapter.openLink("https://discord.gg/gmvS9NEuEn");
+		} else if (id == 5) {
 			showingEndian = false;
 			this.mc.displayGuiScreen(new GuiLanguage(this, this.mc.gameSettings));
-		}
-
-		if (par1GuiButton.id == 2) {
+		} else if (id == 2) {
 			showingEndian = false;
 			this.mc.displayGuiScreen(new GuiMultiplayer(this));
-		}
-
-		if (par1GuiButton.id == 3) {
-			//this.mc.displayGuiScreen(new GuiScreenVoiceChannel(this));
-			EaglerAdapter.openLink(ConfigConstants.forkMe);
-		}
-
-		if (par1GuiButton.id == 4) {
+		} else if (id == 4) {
 			showingEndian = false;
 			this.mc.displayGuiScreen(new GuiScreenEditProfile(this));
+		} else if (id == 3) {
+			showingEndian = false;
+			this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
 		}
 	}
+
 
 	/**
 	 * Draws the main menu panorama
@@ -488,7 +486,6 @@ public class GuiMainMenu extends GuiScreen {
 	private static final TextureLocation ackbk = new TextureLocation("/gui/demo_bg.png");
 	private static final TextureLocation beaconx = new TextureLocation("/gui/beacon.png");
 	private static final TextureLocation items = new TextureLocation("/gui/items.png");
-	private static final TextureLocation GhoulLogo = new TextureLocation("/gui/GhoulClient/logo.png");
 
 	/**
 	 * Draws the screen and all the components in it.
@@ -516,14 +513,24 @@ public class GuiMainMenu extends GuiScreen {
 		//this.drawTexturedModalRect(var6 + 0, var7 + 0, 0, 0, 155, 44);
 		//this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);
 
-		int buttonY = this.height / 4 + 48; // Same Y as first button in initGui
-		int logoWidth = 1000;  // scaled width
-		int logoHeight = 60;  // scaled height
-		int logoX = this.width / 2 - logoWidth / 2; // center horizontally
-		int logoY = buttonY - 40 - logoHeight;     // 40px above first button
+		String title = "Ghoul Client";
+		String version = "Ghoul Client 1.5.2/beta v1";
+		int margin = 5;
+		int verX = margin;
+		int verY = this.height - margin - this.fontRenderer.FONT_HEIGHT; 
 
-		GhoulLogo.bindTexture();
-		this.drawTexturedModalRect(logoX, logoY, 0, 0, logoWidth, logoHeight);
+		this.drawString(this.fontRenderer, version, verX, verY, 0xFFFFFF); 
+
+		float scale = 2.0F;
+		EaglerAdapter.glPushMatrix();
+		EaglerAdapter.glScalef(scale, scale, 1.0F);
+
+		int scaledWidth = (int)(this.width / scale);
+		int textY = (int)((this.height / 4 + 48) / scale - 40 / scale);
+
+		this.drawCenteredString(this.fontRenderer, title, scaledWidth / 2, textY, 0xFFFFFF);
+
+		EaglerAdapter.glPopMatrix();        
 		
 		if(showingEndian && EaglerAdapter.isBigEndian()) {
 			this.drawCenteredString(fontRenderer, "(BIG Endian)", this.width / 2, this.height - 10, 0xFFFFBBBB);
