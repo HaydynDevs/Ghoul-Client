@@ -4,7 +4,7 @@ public enum EnumOptions {
 	MUSIC("options.music", true, false), SOUND("options.sound", true, false), INVERT_MOUSE("options.invertMouse", false, true), SENSITIVITY("options.sensitivity", true, false), FOV("options.fov", true, false),
 	GAMMA("options.gamma", true, false), RENDER_DISTANCE("options.renderDistance", false, false), VIEW_BOBBING("options.viewBobbing", false, true), ANAGLYPH("options.anaglyph", false, true),
 	/*ADVANCED_OPENGL("options.advancedOpengl", false, true),*/ FRAMERATE_LIMIT("options.framerateLimit", false, false), DIFFICULTY("options.difficulty", false, false), GRAPHICS("options.graphics", false, false),
-	AMBIENT_OCCLUSION("options.ao", false, false), GUI_SCALE("options.guiScale", false, false), RENDER_CLOUDS("options.renderClouds", false, true), PARTICLES("options.particles", false, false),
+	AMBIENT_OCCLUSION("options.ao", false, false), GUI_SCALE("options.guiScale", false, true), RENDER_CLOUDS("options.renderClouds", false, true), PARTICLES("options.particles", false, false),
 	CHAT_VISIBILITY("options.chat.visibility", false, false), CHAT_COLOR("options.chat.color", false, true), CHAT_LINKS("options.chat.links", false, true), CHAT_OPACITY("options.chat.opacity", true, false),
 	CHAT_LINKS_PROMPT("options.chat.links.prompt", false, true), USE_SERVER_TEXTURES("options.serverTextures", false, true), SNOOPER_ENABLED("options.snooper", false, true), USE_FULLSCREEN("options.fullscreen", false, true),
 	ENABLE_FOG("options.fog", false, true), SHOW_CAPE("options.showCape", false, true), ANTIALIASING("options.framebufferAntialias", false, false), CHAT_SCALE("options.chat.scale", true, false), CHAT_WIDTH("options.chat.width", true, false),

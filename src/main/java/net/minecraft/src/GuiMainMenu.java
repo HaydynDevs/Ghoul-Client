@@ -86,7 +86,6 @@ public class GuiMainMenu extends GuiScreen {
 				this.splashText = "missingno";
 			}
 		}
-		this.field_92025_p = EaglerAdapter._wisWebGL() ? ("eaglercraft javascript runtime") : ("eaglercraft desktop runtime");
 		this.start = System.currentTimeMillis();
 		this.start += this.start % 10000l;
 		this.ackLines = new ArrayList();
@@ -138,25 +137,37 @@ public class GuiMainMenu extends GuiScreen {
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
 	 */
+
 	public void initGui() {
 		if(viewportTexture == -1) viewportTexture = this.mc.renderEngine.makeViewportTexture(256, 256);
 		Calendar var1 = Calendar.getInstance();
 		var1.setTime(new Date());
 
-		StringTranslate var2 = StringTranslate.getInstance();
-		int var4 = this.height / 4 + 48;
+		int buttonY = this.height / 4 + 48; // same as startY for first button
 
-		if(EaglerAdapter.isIntegratedServerAvailable()) {
-			this.buttonList.add(new GuiButton(1, this.width / 2 - 100, var4, var2.translateKey("menu.singleplayer")));
-			this.buttonList.add(new GuiButton(2, this.width / 2 - 100, var4 + 24 * 1, var2.translateKey("menu.multiplayer")));
-			this.buttonList.add(new GuiButton(3, this.width / 2 - 100, var4 + 24 * 2, var2.translateKey("menu.forkme")));
-		}else {
-			this.buttonList.add(new GuiButton(2, this.width / 2 - 100, var4, var2.translateKey("menu.multiplayer")));
-			this.buttonList.add(new GuiButton(3, this.width / 2 - 100, var4 + 24, var2.translateKey("menu.forkme")));
+		StringTranslate var2 = StringTranslate.getInstance();
+
+		int startY = this.height / 4 + 48;
+		int var4 = this.height / 4 + 48;
+		int spacing = 24;
+		int xPos = this.width / 2 - 50;
+		int y = startY;
+
+		if (EaglerAdapter.isIntegratedServerAvailable()) {
+			this.buttonList.add(new GuiButton(1, xPos, y, 100, 20, var2.translateKey("menu.singleplayer")));
+			y += spacing;
 		}
 
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, var4 + 72 + 12, 98, 20, var2.translateKey("menu.options")));
-		this.buttonList.add(new GuiButton(4, this.width / 2 + 2, var4 + 72 + 12, 98, 20, var2.translateKey("menu.editprofile")));
+		// Multiplayer button
+		this.buttonList.add(new GuiButton(2, xPos, y, 100, 20, var2.translateKey("menu.multiplayer")));
+		y += spacing;
+
+		// Options button
+		this.buttonList.add(new GuiButton(0, xPos, y, 100, 20, var2.translateKey("menu.options")));
+		y += spacing;
+
+		// Edit Profile button
+		this.buttonList.add(new GuiButton(4, xPos, y, 100, 20, var2.translateKey("menu.editprofile")));
 
 		this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, var4 + 72 + 12));
 		Object var5 = this.field_104025_t;
@@ -477,6 +488,7 @@ public class GuiMainMenu extends GuiScreen {
 	private static final TextureLocation ackbk = new TextureLocation("/gui/demo_bg.png");
 	private static final TextureLocation beaconx = new TextureLocation("/gui/beacon.png");
 	private static final TextureLocation items = new TextureLocation("/gui/items.png");
+	private static final TextureLocation GhoulLogo = new TextureLocation("/gui/GhoulClient/logo.png");
 
 	/**
 	 * Draws the screen and all the components in it.
@@ -489,6 +501,7 @@ public class GuiMainMenu extends GuiScreen {
 		short var5 = 274;
 		int var6 = this.width / 2 - var5 / 2;
 		byte var7 = 30;
+
 		if (ConfigConstants.panoramaBlur) {
 			this.drawGradientRect(0, 0, this.width, this.height, -2130706433, 16777215);
 			this.drawGradientRect(0, 0, this.width, this.height, 0, Integer.MIN_VALUE);
@@ -500,18 +513,17 @@ public class GuiMainMenu extends GuiScreen {
 			mclogo.bindTexture();
 		}
 
-		this.drawTexturedModalRect(var6 + 0, var7 + 0, 0, 0, 155, 44);
-		this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);
+		//this.drawTexturedModalRect(var6 + 0, var7 + 0, 0, 0, 155, 44);
+		//this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);
 
-		this.drawString(this.fontRenderer, "minecraft 1.5.2", 2, this.height - 20, 16777215);
-		this.drawString(this.fontRenderer, ConfigConstants.mainMenuString + EnumChatFormatting.GRAY + " (cracked)", 2, this.height - 10, 16777215);
+		int buttonY = this.height / 4 + 48; // Same Y as first button in initGui
+		int logoWidth = 1000;  // scaled width
+		int logoHeight = 60;  // scaled height
+		int logoX = this.width / 2 - logoWidth / 2; // center horizontally
+		int logoY = buttonY - 40 - logoHeight;     // 40px above first button
 
-		//String var10 = "Copyright " + Calendar.getInstance().get(Calendar.YEAR) + " Mojang AB.";
-		String var10 = "copyright 2013 Mojang AB";
-		this.drawString(this.fontRenderer, var10, this.width - this.fontRenderer.getStringWidth(var10) - 2, this.height - 10, 16777215);
-
-		var10 = "site resources are";
-		this.drawString(this.fontRenderer, var10, this.width - this.fontRenderer.getStringWidth(var10) - 2, this.height - 20, 16777215);
+		GhoulLogo.bindTexture();
+		this.drawTexturedModalRect(logoX, logoY, 0, 0, logoWidth, logoHeight);
 		
 		if(showingEndian && EaglerAdapter.isBigEndian()) {
 			this.drawCenteredString(fontRenderer, "(BIG Endian)", this.width / 2, this.height - 10, 0xFFFFBBBB);
@@ -523,17 +535,6 @@ public class GuiMainMenu extends GuiScreen {
 			// this.drawString(this.fontRenderer, field_96138_a, (this.width -
 			// this.field_92024_r) / 2, ((GuiButton)this.buttonList.get(0)).yPosition - 12,
 			// 16777215);
-		}
-		if (this.splashText != null) {
-			var4.setColorOpaque_I(16777215);
-			EaglerAdapter.glPushMatrix();
-			EaglerAdapter.glTranslatef((float) (this.width / 2 + 90), 70.0F, 0.0F);
-			EaglerAdapter.glRotatef(-20.0F, 0.0F, 0.0F, 1.0F);
-			float var8 = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000.0F * (float) Math.PI * 2.0F) * 0.1F);
-			var8 = var8 * 100.0F / (float) (this.fontRenderer.getStringWidth(this.splashText) + 32);
-			EaglerAdapter.glScalef(var8, var8, var8);
-			this.drawCenteredString(this.fontRenderer, this.splashText, 0, -8, 16776960);
-			EaglerAdapter.glPopMatrix();
 		}
 		/*
 		String lid = "(login is disabled, this copy violates Mojang's terms of service)";
@@ -548,18 +549,6 @@ public class GuiMainMenu extends GuiScreen {
 		EaglerAdapter.glDisable(EaglerAdapter.GL_BLEND);
 		EaglerAdapter.glPopMatrix();
 		*/
-		var10 = "eaglercraft readme.txt";
-		int w = this.fontRenderer.getStringWidth(var10) * 3 / 4;
-		if(!showAck && par1 >= (this.width - w - 4) && par1 <= this.width && par2 >= 0 && par2 <= 9) {
-			drawRect((this.width - w - 4), 0, this.width, 9, 0x55000099);
-		}else {
-			drawRect((this.width - w - 4), 0, this.width, 9, 0x55200000);
-		}
-		EaglerAdapter.glPushMatrix();
-		EaglerAdapter.glTranslatef((this.width - w - 2), 1.0f, 0.0f);
-		EaglerAdapter.glScalef(0.75f, 0.75f, 0.75f);
-		this.drawString(this.fontRenderer, var10, 0, 0, 16777215);
-		EaglerAdapter.glPopMatrix();
 		
 		/*
 		var10 = "debug console";

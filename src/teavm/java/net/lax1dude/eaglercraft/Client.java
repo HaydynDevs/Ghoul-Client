@@ -134,7 +134,7 @@ public class Client {
 	}
 
 	private static void run0() {
-		System.out.println(" -------- starting minecraft -------- ");
+		System.out.println("Starting Ghoul Client 1.5.2");
 		instance = new Minecraft();
 		run1();
 	}
