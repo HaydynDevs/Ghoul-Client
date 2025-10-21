@@ -156,8 +156,8 @@ public class GuiMainMenu extends GuiScreen {
 
 		this.buttonList.add(new GuiMainButton(0, this.width / 2 - 100, var4 + 40 + 12, 98, 20, var2.translateKey("menu.options")));
 		this.buttonList.add(new GuiMainButton(4, this.width / 2 + 2, var4 + 40 + 12, 98, 20, var2.translateKey("menu.editprofile")));
-		this.buttonList.add(new GuiMainButton(0, this.width / 2 - 100, var4 + 70 + 12, 98, 20, var2.translateKey("GC Options")));
-		this.buttonList.add(new GuiMainButton(4, this.width / 2 + 2, var4 + 70 + 12, 98, 20, var2.translateKey("Discord")));
+		this.buttonList.add(new GuiMainButton(3, this.width / 2 - 100, var4 + 70 + 12, 98, 20, var2.translateKey("GC Options")));
+		this.buttonList.add(new GuiMainButton(6, this.width / 2 + 2, var4 + 70 + 12, 98, 20, var2.translateKey("Discord")));
 
 
 		int margin = 5; 
@@ -314,8 +314,7 @@ public class GuiMainMenu extends GuiScreen {
 			showingEndian = false;
 			this.mc.displayGuiScreen(new GuiScreenEditProfile(this));
 		} else if (id == 3) {
-			showingEndian = false;
-			this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
+			this.mc.displayGuiScreen(new GuiClientSettings());
 		}
 	}
 

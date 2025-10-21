@@ -111,12 +111,10 @@ public class GuiIngameMenu extends GuiScreen {
 			EaglerAdapter.glPushMatrix();
 			EaglerAdapter.glTranslatef(126.0f, 6.0f, 0.0f);
 			EaglerAdapter.glScalef(0.8f, 0.8f, 0.8f);
-			this.drawString(fontRenderer, var1.translateKey("menu.skinCapeSettingsNote0"), 0, 0, c);
-			this.drawString(fontRenderer, var1.translateKey("menu.skinCapeSettingsNote1"), 0, 9, c);
 			EaglerAdapter.glPopMatrix();
 		}
 
-		drawString(fontRenderer, "Eaglercraft: " + ConfigConstants.version, 6, 27, 0x999999);
+		drawString(fontRenderer, "Ghoul Client 1.5.2" , 6, 27, 0x999999);
 		
 		if(IntegratedServerLAN.isLANOpen()) {
 			String str = var1.translateKey("lanServer.pauseMenu0");

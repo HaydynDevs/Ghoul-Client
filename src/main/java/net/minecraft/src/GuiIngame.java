@@ -411,7 +411,7 @@ public class GuiIngame extends Gui {
 		if (this.mc.gameSettings.showDebugInfo) {
 			this.mc.mcProfiler.startSection("debug");
 			EaglerAdapter.glPushMatrix();
-			var8.drawStringWithShadow("minecraft 1.5.2 (" + this.mc.debug + ")", 2, 2, 16777215);
+			var8.drawStringWithShadow("Ghoul Client 1.5.2 (" + this.mc.debug + ")", 2, 2, 16777215);
 			var8.drawStringWithShadow(this.mc.debugInfoRenders(), 2, 12, 16777215);
 			var8.drawStringWithShadow(this.mc.getEntityDebug(), 2, 22, 16777215);
 			var8.drawStringWithShadow(this.mc.debugInfoEntities(), 2, 32, 16777215);
@@ -480,11 +480,7 @@ public class GuiIngame extends Gui {
 		}else {
 			EaglerAdapter.glPushMatrix();
 			EaglerAdapter.glScalef(0.75f, 0.75f, 0.75f);
-			var8.drawStringWithShadow(this.mc.renderGlobal.getDebugInfoShort(), 2, 2, 16777215);
 
-			if(mc.gameSettings.showCoordinates) {
-				var8.drawStringWithShadow("x: "+MathHelper.floor_double(this.mc.thePlayer.posX)+", y: "+MathHelper.floor_double(this.mc.thePlayer.posY)+", z: "+MathHelper.floor_double(this.mc.thePlayer.posZ), 2, 12, 16777215);
-			}
 			
 			if(IntegratedServer.isWorldRunning()) {
 				String strr = "Playing Singleplayer";
