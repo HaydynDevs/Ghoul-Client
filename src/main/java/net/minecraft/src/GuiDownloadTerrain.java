@@ -48,7 +48,7 @@ public class GuiDownloadTerrain extends GuiScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void drawScreen(int par1, int par2, float par3) {
-		this.drawBackground(0);
+		//this.drawBackground(0);
 		StringTranslate var4 = StringTranslate.getInstance();
 		this.drawCenteredString(this.fontRenderer, var4.translateKey("multiplayer.downloadingTerrain"), this.width / 2, this.height / 2 - 50, 16777215);
 		super.drawScreen(par1, par2, par3);

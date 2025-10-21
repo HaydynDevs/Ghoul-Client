@@ -9,6 +9,7 @@ import net.lax1dude.eaglercraft.GuiVoiceMenu;
 import net.lax1dude.eaglercraft.IntegratedServer;
 import net.lax1dude.eaglercraft.IntegratedServerLAN;
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.GuiClientSettings;
 
 public class GuiIngameMenu extends GuiScreen {
 
@@ -33,6 +34,7 @@ public class GuiIngameMenu extends GuiScreen {
 		}
 
 		this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + var1, StatCollector.translateToLocal("menu.returnToGame")));
+		this.buttonList.add(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 48 + var1, StatCollector.translateToLocal("GC Options")));
 		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + var1, 98, 20, StatCollector.translateToLocal("menu.options")));
 		this.buttonList.add(lanButton = new GuiButton(7, this.width / 2 + 2, this.height / 4 + 96 + var1, 98, 20, StatCollector.translateToLocal(IntegratedServerLAN.isLANOpen() ? "menu.closeLan" : "menu.shareToLan")));
 		lanButton.enabled = mc.isSingleplayer();
@@ -54,8 +56,10 @@ public class GuiIngameMenu extends GuiScreen {
 			this.mc.theWorld.sendQuittingDisconnectingPacket();
 			this.mc.loadWorld((WorldClient) null);
 			this.mc.stopServerAndDisplayGuiScreen(new GuiMainMenu());
-
+			break;
 		case 2:
+			this.mc.displayGuiScreen(new GuiClientSettings());
+			break;
 		case 3:
 		default:
 			break;
@@ -103,7 +107,7 @@ public class GuiIngameMenu extends GuiScreen {
 	 */
 	public void drawScreen(int par1, int par2, float par3) {
 		this.drawDefaultBackground();
-		this.drawCenteredString(this.fontRenderer, "Game menu", this.width / 2, 40, 16777215);
+		this.drawCenteredString(this.fontRenderer, "Ghoul Client", this.width / 2, 40, 16777215);
 		super.drawScreen(par1, par2, par3);
 		StringTranslate var1 = StringTranslate.getInstance();
 		if(par1 >= 3 && par1 < 123 && par2 >= 3 && par2 < 23) {

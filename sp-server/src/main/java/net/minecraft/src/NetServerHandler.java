@@ -558,7 +558,7 @@ public class NetServerHandler extends NetHandler {
 
 	public void handleChat(Packet3Chat par1Packet3Chat) {
 		if (this.playerEntity.getChatVisibility() == 2) {
-			this.sendPacket(new Packet3Chat("Cannot send chat message."));
+			this.sendPacket(new Packet3Chat("Cannot send chat message! (Server has chat disabled, or you've lost connection)"));
 		} else {
 			String var2 = par1Packet3Chat.message;
 
