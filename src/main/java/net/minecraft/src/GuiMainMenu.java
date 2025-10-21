@@ -58,7 +58,7 @@ public class GuiMainMenu extends GuiScreen {
 	private String field_104024_v;
 
 	/** An array of all the paths to the panorama pictures. */
-	private static final TextureLocation[] titlePanoramaPaths = new TextureLocation[] { new TextureLocation("/title/bg/panorama0.png"), new TextureLocation("/title/bg/panorama1.png"), new TextureLocation("/title/bg/panorama2.png"), new TextureLocation("/title/bg/panorama3.png"), new TextureLocation("/title/bg/panorama4.png"), new TextureLocation("/title/bg/panorama5.png") };
+	private static final TextureLocation[] titlePanoramaPaths = new TextureLocation[] { new TextureLocation("/title/bg/panorama_0.png"), new TextureLocation("/title/bg/panorama_1.png"), new TextureLocation("/title/bg/panorama_2.png"), new TextureLocation("/title/bg/panorama_3.png"), new TextureLocation("/title/bg/panorama_4.png"), new TextureLocation("/title/bg/panorama_5.png") };
 	public static final String field_96138_a = "";
 	private int field_92024_r;
 	private int field_92023_s;
@@ -144,18 +144,21 @@ public class GuiMainMenu extends GuiScreen {
 		Calendar var1 = Calendar.getInstance();
 		var1.setTime(new Date());
 
-		int buttonY = this.height / 4 + 48; // same as startY for first button
 		StringTranslate var2 = StringTranslate.getInstance();
 		int var4 = this.height / 4 + 48;
 
-		if (EaglerAdapter.isIntegratedServerAvailable()) {
+		if(EaglerAdapter.isIntegratedServerAvailable()) {
 			this.buttonList.add(new GuiMainButton(1, this.width / 2 - 100, var4, var2.translateKey("menu.singleplayer")));
+			this.buttonList.add(new GuiMainButton(2, this.width / 2 - 100, var4 + 24 * 1, var2.translateKey("menu.multiplayer")));
+		}else {
+			this.buttonList.add(new GuiMainButton(2, this.width / 2 - 100, var4, var2.translateKey("menu.multiplayer")));
 		}
 
-		this.buttonList.add(new GuiMainButton(2,this.width / 2 - 100, var4 + 24 * 1, var2.translateKey("menu.multiplayer")));
-		this.buttonList.add(new GuiMainButton(3, this.width / 2 - 100, var4 + 48 * 1, var2.translateKey("menu.options")));
-		this.buttonList.add(new GuiMainButton(4, this.width / 2 - 100, var4 + 72 * 1, var2.translateKey("menu.editprofile")));
-		//this.buttonList.add(new GuiButton(6, xPos, y, 100, 20, var2.translateKey("Discord")));
+		this.buttonList.add(new GuiMainButton(0, this.width / 2 - 100, var4 + 40 + 12, 98, 20, var2.translateKey("menu.options")));
+		this.buttonList.add(new GuiMainButton(4, this.width / 2 + 2, var4 + 40 + 12, 98, 20, var2.translateKey("menu.editprofile")));
+		this.buttonList.add(new GuiMainButton(0, this.width / 2 - 100, var4 + 70 + 12, 98, 20, var2.translateKey("GC Options")));
+		this.buttonList.add(new GuiMainButton(4, this.width / 2 + 2, var4 + 70 + 12, 98, 20, var2.translateKey("Discord")));
+
 
 		int margin = 5; 
 		int buttonWidth = 24; 
@@ -514,7 +517,7 @@ public class GuiMainMenu extends GuiScreen {
 		//this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);
 
 		String title = "Ghoul Client";
-		String version = "Ghoul Client 1.5.2/beta v1";
+		String version = "Ghoul Client 1.5.2";
 		int margin = 5;
 		int verX = margin;
 		int verY = this.height - margin - this.fontRenderer.FONT_HEIGHT; 
@@ -526,7 +529,7 @@ public class GuiMainMenu extends GuiScreen {
 		EaglerAdapter.glScalef(scale, scale, 1.0F);
 
 		int scaledWidth = (int)(this.width / scale);
-		int textY = (int)((this.height / 4 + 48) / scale - 40 / scale);
+		int textY = (int)((this.height / 4 + 60) / scale - 40 / scale);
 
 		this.drawCenteredString(this.fontRenderer, title, scaledWidth / 2, textY, 0xFFFFFF);
 

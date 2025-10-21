@@ -18,6 +18,7 @@ public class GuiMainButton extends GuiButton {
 
     @Override
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+
         if (!this.drawButton) return;
 
         FontRenderer font = mc.fontRenderer;

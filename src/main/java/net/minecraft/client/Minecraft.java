@@ -85,10 +85,12 @@ import net.minecraft.src.TexturePackList;
 import net.minecraft.src.Timer;
 import net.minecraft.src.WorldClient;
 import net.minecraft.src.WorldSettings;
+import net.minecraft.src.GuiClientSettings;
 
 public class Minecraft implements Runnable {
 	
 	private ServerData currentServerData;
+	private boolean wasLeftAltDown = false;
 
 	/**
 	 * Set to 'this' in Minecraft constructor; used by some settings get methods
@@ -727,6 +729,18 @@ public class Minecraft implements Runnable {
 		if (!EaglerAdapter.isKeyDown(65)) {
 			EaglerAdapter.updateDisplay();
 		}
+
+		boolean isLeftAltDown = EaglerAdapter.isKeyDown(56); // Left Alt key code = 56
+
+		if (isLeftAltDown && !wasLeftAltDown) {
+			if (currentScreen == null) {
+				this.displayGuiScreen(new GuiClientSettings());
+			}
+		}
+
+		wasLeftAltDown = isLeftAltDown;
+
+
 
 		if (this.thePlayer != null && this.thePlayer.isEntityInsideOpaqueBlock()) {
 			this.gameSettings.thirdPersonView = 0;

@@ -306,7 +306,7 @@ noRelay.worldNotFound2=Make sure to add the '§f$code$§r' world's relay URL
 noRelay.worldNotFound3=to the relay list 'Network Settings' to connect
 noRelay.worldFail=Failed to connect to '$code$'!
 
-multiplayer.title=Play Multiplayer
+multiplayer.title=SERVER LIST
 multiplayer.connect=Connect
 multiplayer.info1=Minecraft Multiplayer is currently not finished, but there
 multiplayer.info2=is some buggy early testing going on.
