@@ -488,6 +488,7 @@ public class GuiMainMenu extends GuiScreen {
 	private static final TextureLocation ackbk = new TextureLocation("/gui/demo_bg.png");
 	private static final TextureLocation beaconx = new TextureLocation("/gui/beacon.png");
 	private static final TextureLocation items = new TextureLocation("/gui/items.png");
+	private static final TextureLocation GClogo = new TextureLocation("/gui/GhoulClient/logo.png");
 
 	/**
 	 * Draws the screen and all the components in it.
@@ -514,6 +515,31 @@ public class GuiMainMenu extends GuiScreen {
 
 		//this.drawTexturedModalRect(var6 + 0, var7 + 0, 0, 0, 155, 44);
 		//this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);
+
+
+		//The code below renders the Ghoul Client logo in the top center
+		GClogo.bindTexture();
+		float texWidth = 500f;
+		float texHeight = 500f;
+		int imgWidth = 70;
+		int imgHeight = 70;
+		int imageCoordX = (this.width / 2) - (imgWidth / 2);
+		int imageCoordY = 5;
+
+		// Scale and draw properly using normalized UVs
+		EaglerAdapter.glPushMatrix();
+		EaglerAdapter.glTranslatef(imageCoordX, imageCoordY, 0.0f);
+		EaglerAdapter.glScalef(1.0f, 1.0f, 1.0f);
+
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		tess.addVertexWithUV(0, imgHeight, 0, 0.0, 1.0);  // bottom-left, seems confusing but it's correct
+		tess.addVertexWithUV(imgWidth, imgHeight, 0, 1.0, 1.0); // bottom-right
+		tess.addVertexWithUV(imgWidth, 0, 0, 1.0, 0.0);  // top-right
+		tess.addVertexWithUV(0, 0, 0, 0.0, 0.0);  // top-left
+		tess.draw();
+
+		EaglerAdapter.glPopMatrix();
 
 		String title = "Ghoul Client";
 		String version = "Ghoul Client 1.5.2";

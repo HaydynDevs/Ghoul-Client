@@ -2,6 +2,7 @@ package net.minecraft.src;
 
 import net.lax1dude.eaglercraft.EaglerAdapter;
 import net.lax1dude.eaglercraft.TextureLocation;
+import net.lax1dude.eaglercraft.adapter.Tessellator;
 import net.minecraft.client.Minecraft;
 
 public class GuiInventory extends InventoryEffectRenderer {
@@ -58,9 +59,11 @@ public class GuiInventory extends InventoryEffectRenderer {
 		super.drawScreen(par1, par2, par3);
 		this.xSize_lo = (float) par1;
 		this.ySize_lo = (float) par2;
+
 	}
 	
 	private static final TextureLocation tex = new TextureLocation("/gui/inventory.png");
+	private static final TextureLocation LogoLong = new TextureLocation("/gui/GhoulClient/logoLong.png");
 
 	/**
 	 * Draw the background layer for the GuiContainer (everything behind the items)
@@ -72,6 +75,28 @@ public class GuiInventory extends InventoryEffectRenderer {
 		int var5 = this.guiTop;
 		this.drawTexturedModalRect(var4, var5, 0, 0, this.xSize, this.ySize);
 		drawPlayerOnGui(this.mc, var4 + 51, var5 + 75, 30, (float) (var4 + 51) - this.xSize_lo, (float) (var5 + 75 - 50) - this.ySize_lo);
+
+		LogoLong.bindTexture(); // replace with your texture variable name
+
+		float texWidth = 688f;
+		float texHeight = 188f;
+		int imgWidth = 160;
+		int imgHeight = 40;
+		int imageCoordX = (this.width / 2) - (imgWidth / 2);
+		int imageCoordY = 5;
+
+		// Draw scaled texture
+		EaglerAdapter.glPushMatrix();
+		EaglerAdapter.glTranslatef(imageCoordX, imageCoordY, 0.0f);
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		tess.addVertexWithUV(0, imgHeight, 0, 0.0, 1.0);        
+		tess.addVertexWithUV(imgWidth, imgHeight, 0, 1.0, 1.0); 
+		tess.addVertexWithUV(imgWidth, 0, 0, 1.0, 0.0);         
+		tess.addVertexWithUV(0, 0, 0, 0.0, 0.0);              
+		tess.draw();
+
+		EaglerAdapter.glPopMatrix();
 	}
 
 	public static void drawPlayerOnGui(Minecraft par0Minecraft, int par1, int par2, int par3, float par4, float par5) {

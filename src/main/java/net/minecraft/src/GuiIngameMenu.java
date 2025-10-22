@@ -10,6 +10,9 @@ import net.lax1dude.eaglercraft.IntegratedServer;
 import net.lax1dude.eaglercraft.IntegratedServerLAN;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiClientSettings;
+import net.lax1dude.eaglercraft.TextureLocation;
+import net.lax1dude.eaglercraft.adapter.Tessellator;
+import net.minecraft.src.GuiMainButton;
 
 public class GuiIngameMenu extends GuiScreen {
 
@@ -27,18 +30,18 @@ public class GuiIngameMenu extends GuiScreen {
 	public void initGui() {
 		this.buttonList.clear();
 		byte var1 = -16;
-		this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + var1, StatCollector.translateToLocal("menu.returnToMenu")));
+		this.buttonList.add(new GuiMainButton(1, this.width / 2 - 100, this.height / 4 + 120 + var1, StatCollector.translateToLocal("menu.returnToMenu")));
 
 		if (!this.mc.isIntegratedServerRunning()) {
-			((GuiButton) this.buttonList.get(0)).displayString = StatCollector.translateToLocal("menu.disconnect");
+			((GuiMainButton) this.buttonList.get(0)).displayString = StatCollector.translateToLocal("menu.disconnect");
 		}
 
-		this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + var1, StatCollector.translateToLocal("menu.returnToGame")));
-		this.buttonList.add(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 48 + var1, StatCollector.translateToLocal("GC Options")));
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + var1, 98, 20, StatCollector.translateToLocal("menu.options")));
-		this.buttonList.add(lanButton = new GuiButton(7, this.width / 2 + 2, this.height / 4 + 96 + var1, 98, 20, StatCollector.translateToLocal(IntegratedServerLAN.isLANOpen() ? "menu.closeLan" : "menu.shareToLan")));
+		this.buttonList.add(new GuiMainButton(4, this.width / 2 - 100, this.height / 4 + 24 + var1, StatCollector.translateToLocal("menu.returnToGame")));
+		this.buttonList.add(new GuiMainButton(2, this.width / 2 - 100, this.height / 4 + 48 + var1, StatCollector.translateToLocal("GC Options")));
+		this.buttonList.add(new GuiMainButton(0, this.width / 2 - 100, this.height / 4 + 96 + var1, 98, 20, StatCollector.translateToLocal("menu.options")));
+		this.buttonList.add(lanButton = new GuiMainButton(7, this.width / 2 + 2, this.height / 4 + 96 + var1, 98, 20, StatCollector.translateToLocal(IntegratedServerLAN.isLANOpen() ? "menu.closeLan" : "menu.shareToLan")));
 		lanButton.enabled = mc.isSingleplayer();
-		this.buttonList.add(new GuiButton(8, 3, 3, 120, 20, StatCollector.translateToLocal("menu.skinCapeSettings")));
+		this.buttonList.add(new GuiMainButton(8, 3, 3, 120, 20, StatCollector.translateToLocal("menu.skinCapeSettings")));
 	}
 
 	/**
@@ -105,9 +108,10 @@ public class GuiIngameMenu extends GuiScreen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
+	private static final TextureLocation LogoLong = new TextureLocation("/gui/GhoulClient/logoLong.png");
 	public void drawScreen(int par1, int par2, float par3) {
 		this.drawDefaultBackground();
-		this.drawCenteredString(this.fontRenderer, "Ghoul Client", this.width / 2, 40, 16777215);
+		//this.drawCenteredString(this.fontRenderer, "Ghoul Client", this.width / 2, 40, 16777215);
 		super.drawScreen(par1, par2, par3);
 		StringTranslate var1 = StringTranslate.getInstance();
 		if(par1 >= 3 && par1 < 123 && par2 >= 3 && par2 < 23) {
@@ -164,6 +168,28 @@ public class GuiIngameMenu extends GuiScreen {
 			}
 		}catch(AbortedException ex) {
 		}
+
+		LogoLong.bindTexture(); 
+
+		float texWidth = 688f;
+		float texHeight = 188f;
+		int imgWidth = 160;
+		int imgHeight = 40;
+		int imageCoordX = (this.width / 2) - (imgWidth / 2);
+		int imageCoordY = 5;
+
+		// Draw scaled texture. I don't know how this knows the image it's scaling, but it works.
+		EaglerAdapter.glPushMatrix();
+		EaglerAdapter.glTranslatef(imageCoordX, imageCoordY, 0.0f);
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		tess.addVertexWithUV(0, imgHeight, 0, 0.0, 1.0);        
+		tess.addVertexWithUV(imgWidth, imgHeight, 0, 1.0, 1.0); 
+		tess.addVertexWithUV(imgWidth, 0, 0, 1.0, 0.0);         
+		tess.addVertexWithUV(0, 0, 0, 0.0, 0.0);              
+		tess.draw();
+
+		EaglerAdapter.glPopMatrix();
 		
 	}
 	

@@ -38,7 +38,7 @@ public class GuiAssetButton extends GuiButton {
 
         int color = 14737632; // default
         if (!this.enabled) color = 14737632;
-        else if (this.field_82253_i) color = 16777120;
+        else if (this.field_82253_i) color = 14737632;
 
         this.drawCenteredString(font, this.displayString, this.xPosition + this.width / 2,
                 this.yPosition + (this.height - 8) / 2, color);

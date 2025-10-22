@@ -153,13 +153,16 @@ ${classes_server_js}
 <script type="text/javascript">
 function countdown() {
 	const c = document.getElementById("countdown");
-	setTimeout(function(){ c.innerText = "(Game will launch in 1)"; }, 1000);
+	setTimeout(function(){ c.innerText = "Loading Ghoul Client"; }, 1000);
 }
 </script>
 </head>
 <body style="margin:0px;width:100vw;height:100vh;font-family:sans-serif;background-color:black;color:white;" id="game_frame">
 <div id="locally" style="text-align:center;">
 <div style="height:5vh;"></div>
+<center>
+	<img src="/lwjgl-rundir/resources/gui/GhoulClient/logo.png" />
+</center>
 <h1>Ghoul Client 1.5.2</h1>
 <h3>the version you are currently using is from <span style="color:#cc0000;font-size:larger;">${date}</span></h3>
 <p id="countdown" style="text-align:center;">Launching Game...</p>
